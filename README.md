@@ -48,15 +48,13 @@ We will use **SMOTE** to oversample the minority class (`0`), helping to create 
 - The **right-skewed nature** of these distributions suggests that **higher values** for jitter, shimmer, and vocal frequency are more likely to be associated with Parkinson's disease.
 - **Lower values** for these metrics typically indicate more stable vocal characteristics, often seen in **healthy** individuals.
 
-## 🔍 Suggestions Before Modeling
-1. **Feature Scaling**: Consider **normalizing or transforming** these skewed features to reduce the impact of skewness on the model. Techniques like **log transformation** can help reduce the skewness.
-2. **Feature Selection**: Conduct **feature importance analysis** to determine which jitter, shimmer, or frequency metrics are the most discriminative between classes.
-3. **Statistical Testing**: Apply **statistical tests** to assess whether the differences in jitter, shimmer, and frequency values are significant between healthy and Parkinson's individuals. This can provide further insight into the key predictive features.
-4. **SMOTE Application**: Use **SMOTE** to handle the class imbalance in the target variable, ensuring that both classes are well represented during model training.
+## 🚀 Recent Progress
+- We have applied **log transformation** to several features to address right skewness in the data. This is an ongoing process, and we are evaluating how effective these transformations have been in reducing skewness. Features transformed include **MDVP:Fo(Hz)**, **MDVP:Fhi(Hz)**, **MDVP:Jitter(%)**, and others related to **jitter**, **shimmer**, and **vocal frequency**.
+- Comparative analysis has been performed using **box plots** and **bar charts** to understand the distribution of nonlinear complexity measures (**RPDE**, **DFA**, **PPE**) between healthy and Parkinson’s groups.
 
 ## 🔗 Dataset Link
 [Parkinson Disease Detection Dataset on Kaggle](https://www.kaggle.com/datasets/debasisdotcom/parkinson-disease-detection)
 
 ## 📝 Note
-This is an **ongoing project**, and I am actively working on improving and refining the model. More updates will be added as progress is made.
+This is an **ongoing project**, and I am actively working on improving and refining the model. More updates will be added as progress is made, including completing the log transformation and preparing the data for modeling.
 
