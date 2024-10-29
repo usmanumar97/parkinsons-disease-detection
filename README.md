@@ -1,60 +1,61 @@
 # Parkinson's Disease Prediction Project
 
-## 📝 Overview
-The goal of this project is to develop a classification model that predicts whether an individual has Parkinson's disease (label **1**) or is healthy (label **0**) based on vocal characteristics measured from voice recordings. 🎯 These features are indicative of the distinct vocal impairments commonly observed in Parkinson's patients, making this a **binary classification problem** where the model aims to accurately distinguish between healthy and Parkinson's cases.
+## 📝 Project Overview
+The objective of this project is to create a machine learning model that predicts Parkinson’s disease from vocal characteristics recorded from patients. This classification task aims to distinguish between individuals with Parkinson's disease (labeled as **1**) and healthy individuals (labeled as **0**). These features capture distinct vocal impairments that are prevalent in Parkinson’s patients, making this a **binary classification problem**.
 
 ## 🔄 Project Lifecycle
 
-1. 🧼 Data Pre-Processing & Cleaning
-2. 📊 Exploratory Data Analysis (EDA)
-3. ⚙️ Feature Engineering
-4. ✂️ Data Splitting
-5. ⚖️ Balance Data with Sampling Techniques
-6. 🤖 Training Machine Learning Model
-7. 🔍 Feature Importance Analysis (Post-Modeling)
+1. **Data Pre-Processing & Cleaning**
+2. **Exploratory Data Analysis (EDA)**
+3. **Feature Engineering**
+4. **Data Splitting**
+5. **Balance Data with Sampling Techniques**
+6. **Training the Machine Learning Model**
+7. **Feature Importance Analysis (Post-Modeling)**
 
-### 🎯 End Goal
-An accurate and interpretable model for Parkinson's disease prediction.
+## 📂 Dataset Overview Summary
+This dataset includes various vocal attributes measured from individuals, relevant for assessing vocal instability—a key symptom of Parkinson's. Below is an outline of the key variables used:
 
-## 📂 Dataset Overview
 - **Name**: Contains an identifier for each subject and recording.
+
 - **Vocal Attributes**:
-  - **MDVP:Fo(Hz)**, **MDVP:Fhi(Hz)**, **MDVP:Flo(Hz)**: Measures of the fundamental vocal frequency, capturing average, maximum, and minimum frequency respectively.
-  - **MDVP:Jitter(%)**, **MDVP:Jitter(Abs)**, **MDVP:RAP**, **MDVP:PPQ**, **Jitter:DDP**: Metrics capturing variations in fundamental frequency (jitter), which indicate stability in vocal pitch, often affected in Parkinson's disease.
-  - **MDVP:Shimmer**, **MDVP:Shimmer(dB)**, **Shimmer:APQ3**, **Shimmer:APQ5**, **MDVP:APQ**, **Shimmer:DDA**: Measures of amplitude variation (shimmer), representing voice stability in terms of loudness.
-  - **NHR**, **HNR**: Ratios capturing noise to tonal components in the voice, which may reflect vocal disorder severity.
+  - **Fundamental Frequency Metrics**: Average, high, and low frequencies (**MDVP:Fo(Hz)**, **MDVP:Fhi(Hz)**, **MDVP:Flo(Hz)**).
+  - **Frequency Variation Metrics**: Measures of pitch stability, such as jitter (**MDVP:Jitter(%)**, **MDVP:Jitter(Abs)**, **MDVP:RAP**, **MDVP:PPQ**, **Jitter:DDP**).
+  - **Amplitude Variation Metrics**: Shimmer metrics indicating loudness variability, such as **MDVP:Shimmer**, **Shimmer:APQ5**, **MDVP:APQ**, **Shimmer:DDA**.
+  - **Noise Ratios**: **NHR** and **HNR** metrics, indicating noise levels in the voice.
+
 - **Dynamical Complexity Measures**:
-  - **RPDE**, **DFA**: Measures of vocal signal complexity and fractal scaling, linked to vocal stability.
-  - **Spread1**, **Spread2**, **D2**, **PPE**: Nonlinear vocal metrics capturing deviations in pitch and energy, relevant for Parkinson's diagnosis.
-- **Status**: Target variable indicating health status (**1** = Parkinson's, **0** = Healthy).
+  - **Signal Complexity Metrics**: **RPDE**, **DFA** for capturing dynamic complexity in voice signals.
+  - **Pitch Variation Metrics**: Nonlinear pitch metrics (**Spread1**, **Spread2**, **D2**, **PPE**) indicative of voice irregularities.
 
-## 📈 Target Variable Analysis: `status`
-The target variable **`status`** represents whether an individual has Parkinson's disease (**1**) or is healthy (**0**).
+- **Status**: Target variable indicating health status (**1 = Parkinson's, 0 = Healthy**).
 
-### 📊 Value Counts of `status`
-The dataset has **147 positive cases** (Parkinson's) and **48 negative cases** (Healthy), indicating a class imbalance.
+## ⚖️ Addressing Class Imbalance
+Given that the dataset has **147 Parkinson’s cases** and **48 healthy cases**, class imbalance handling is essential. **SMOTE (Synthetic Minority Over-sampling Technique)** was applied to generate a balanced dataset.
 
-### ⚖️ Addressing Class Imbalance with SMOTE
-We will use **SMOTE** to oversample the minority class (`0`), helping to create a balanced dataset and improve model performance.
+## 📊 EDA Findings
+### 1. Feature Distributions
+  - **Right-Skewed Features**: Jitter, Shimmer, and vocal frequency metrics show a right-skewed distribution, where the majority have lower values, with a few individuals exhibiting higher values, suggesting vocal instability in Parkinson’s cases.
+  - **Skew Correction**: Log transformation was applied to adjust the skewness in jitter, shimmer, and frequency metrics for more normal-like distributions.
 
-## 📊 Analysis Findings
-### 1. Jitter, Shimmer, and Fundamental Frequency Distribution
-- Most of the **jitter**, **shimmer**, and **fundamental vocal frequency** metrics show **right-skewed** distributions.
-- **Right-skewed distribution** suggests that the majority of subjects have **lower values**, while fewer individuals have much **higher values**, creating a long right tail.
-- **Higher jitter and shimmer values** in the right tail indicate **vocal instability**, commonly seen in Parkinson's patients.
-- The **fundamental frequency** metrics also show right skewness, implying that only a few individuals have unusually **high vocal frequencies**, which could indicate **reduced vocal control**.
-
-### 2. Differentiating Healthy and Parkinson’s Patients
-- The **right-skewed nature** of these distributions suggests that **higher values** for jitter, shimmer, and vocal frequency are more likely to be associated with Parkinson's disease.
-- **Lower values** for these metrics typically indicate more stable vocal characteristics, often seen in **healthy** individuals.
+### 2. Distinguishing Parkinson’s and Healthy Cases
+  - **Higher Jitter and Shimmer Values**: Tend to correlate with Parkinson’s, aligning with the expectation that Parkinson’s affects vocal stability.
+  - **Lower Values**: Typically align with more stable vocal characteristics in healthy individuals.
 
 ## 🚀 Recent Progress
-- We have applied **log transformation** to several features to address right skewness in the data. This is an ongoing process, and we are evaluating how effective these transformations have been in reducing skewness. Features transformed include **MDVP:Fo(Hz)**, **MDVP:Fhi(Hz)**, **MDVP:Jitter(%)**, and others related to **jitter**, **shimmer**, and **vocal frequency**.
-- Comparative analysis has been performed using **box plots** and **bar charts** to understand the distribution of nonlinear complexity measures (**RPDE**, **DFA**, **PPE**) between healthy and Parkinson’s groups.
+1. **Feature Transformation**: Applied log transformations on several features to address skewness, with ongoing evaluations on their effectiveness.
+2. **Visualization Analysis**: Box plots and bar charts were used to visualize nonlinear complexity measures (RPDE, DFA, PPE) and their distributions across healthy and Parkinson’s cases.
 
-## 🔗 Dataset Link
-[Parkinson Disease Detection Dataset on Kaggle](https://www.kaggle.com/datasets/debasisdotcom/parkinson-disease-detection)
+## 🎯 Project Goal
+To develop a robust, interpretable model for predicting Parkinson's disease based on vocal characteristics.
 
-## 📝 Note
-This is an **ongoing project**, and I am actively working on improving and refining the model. More updates will be added as progress is made, including completing the log transformation and preparing the data for modeling.
+
+## 🔗 Dataset Source
+The dataset is available on [Kaggle - Parkinson Disease Detection Dataset](https://www.kaggle.com/datasets/debasisdotcom/parkinson-disease-detection).
+
+---
+
+This is an ongoing project with continuous improvements being made for greater accuracy and interpretability.
+
+---
 
